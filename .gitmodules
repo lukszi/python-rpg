@@ -1,0 +1,3 @@
+[submodule "genpoly-rpg"]
+	path = genpoly-rpg
+	url = https://github.com/cgalab/genpoly-rpg.git

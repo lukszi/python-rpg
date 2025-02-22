@@ -1,0 +1,1 @@
+file(WRITE "${output_dir}/gitversion.h" "#define GITVERSION \"unknown\"")
