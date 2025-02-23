@@ -59,14 +59,16 @@ static PyObject* generate_polygons(PyObject* self, PyObject* args, PyObject* kwa
         }
         
         // Set algorithm
-        enum t_calcType algo = CP_2OPT;
+        enum t_calcType algo = CP_2OPT_II;
         if (strcmp(algorithm, "2opt") == 0) algo = CP_2OPT;
         else if (strcmp(algorithm, "2opt_ii") == 0) algo = CP_2OPT_II;
         else if (strcmp(algorithm, "2opt_iii") == 0) algo = CP_2OPT_III;
-        else if (strcmp(algorithm, "space_part") == 0) algo = CP_SPACE_PART;
-        else if (strcmp(algorithm, "growing") == 0) algo = CP_GROWING;
-        else if (strcmp(algorithm, "growing_ii") == 0) algo = CP_GROWING_II;
+        else if (strcmp(algorithm, "space") == 0) algo = CP_SPACE_PART;
+        else if (strcmp(algorithm, "growth") == 0) algo = CP_GROWING;
+        else if (strcmp(algorithm, "growth_ii") == 0) algo = CP_GROWING_II;
         else if (strcmp(algorithm, "star") == 0) algo = CP_STAR;
+        else if (strcmp(algorithm, "fast_star") == 0) algo = CP_FAST_STAR;
+        else if (strcmp(algorithm, "xmono") == 0) algo = CP_XMONO;
         
         // Generate polygon
         CPsetState(algo, RPG_UNDEFINED);

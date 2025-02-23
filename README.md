@@ -70,10 +70,12 @@ polygons = genpoly_rpg.generate_polygons(
 # - '2opt'        (Default 2-opt based algorithm)
 # - '2opt_ii'     (Alternative 2-opt implementation)
 # - '2opt_iii'    (Another 2-opt variant)
-# - 'space_part'  (Space partitioning algorithm)
-# - 'growing'     (Growing algorithm)
-# - 'growing_ii'  (Alternative growing implementation)
+# - 'space'       (Space partitioning algorithm)
+# - 'growth'      (Growing algorithm)
+# - 'growth_ii'   (Alternative growing implementation)
 # - 'star'        (Star-shaped polygon generation)
+# - 'fast_star'   (Fast star-shaped polygon generation)
+# - 'xmono'       (xmonotone polygon generation)
 ```
 
 ## Output Format
