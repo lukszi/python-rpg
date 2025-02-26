@@ -35,6 +35,9 @@ static PyObject* generate_polygons(PyObject* self, PyObject* args, PyObject* kwa
     if (seed >= 0) {
         srand48(seed);
     }
+    else {
+        srand48(time(NULL));
+    }
     
     // Create NumPy array to store results
     npy_intp dims[3] = {num_polygons, vertices + 1, 2}; // +1 because we repeat first vertex at end
