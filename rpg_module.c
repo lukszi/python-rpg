@@ -11,6 +11,36 @@
 #include "basicInits.h"
 #include "eralloc.h"
 
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+#ifdef _WIN32
+#define DEV_NULL "NUL"
+#else
+#define DEV_NULL "/dev/null"
+#endif
+
+static int disable_stdout(void) {
+    fflush(stdout);
+    int stdout_fd = fileno(stdout);
+    int saved_stdout = dup(stdout_fd);
+    int null_fd = open(DEV_NULL, O_WRONLY);
+    if (null_fd == -1) {
+        return -1;  // Failed to open /dev/null
+    }
+    dup2(null_fd, stdout_fd);
+    close(null_fd);
+    return saved_stdout;
+}
+
+static void restore_stdout(int saved_stdout) {
+    fflush(stdout);
+    dup2(saved_stdout, fileno(stdout));
+    close(saved_stdout);
+}
+
+
 static PyObject* generate_polygons(PyObject* self, PyObject* args, PyObject* kwargs) {
     int vertices;
     int num_polygons = 1;
@@ -24,7 +54,13 @@ static PyObject* generate_polygons(PyObject* self, PyObject* args, PyObject* kwa
                                     &vertices, &num_polygons, &seed, &cluster, &algorithm)) {
         return NULL;
     }
-    
+
+    int saved_stdout = disable_stdout();
+    if (saved_stdout == -1) {
+        PyErr_SetString(PyExc_RuntimeError, "Failed to redirect stdout");
+        return NULL;
+    }
+
     // Initialize RPG subsystems
     BIinit();
     erinit();
@@ -91,6 +127,7 @@ static PyObject* generate_polygons(PyObject* self, PyObject* args, PyObject* kwa
         }
     }
     
+    restore_stdout(saved_stdout);
     // Cleanup
     POfree();
     YOfree();
