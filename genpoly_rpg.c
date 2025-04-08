@@ -152,13 +152,13 @@ static PyMethodDef RPGMethods[] = {
 
 static struct PyModuleDef rpgmodule = {
     PyModuleDef_HEAD_INIT,
-    "genpoly_rpg",
+    "_genpoly_rpg",
     "Python interface for Random Polygon Generator (RPG)",
     -1,
     RPGMethods
 };
 
-PyMODINIT_FUNC PyInit_genpoly_rpg(void) {
+PyMODINIT_FUNC PyInit__genpoly_rpg(void) {
     import_array();  // Initialize NumPy
     return PyModule_Create(&rpgmodule);
 }
