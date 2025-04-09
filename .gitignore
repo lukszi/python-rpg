@@ -20,6 +20,9 @@ wheels/
 .installed.cfg
 *.egg
 
+# PyCharm
+.idea/
+
 # CMake
 CMakeCache.txt
 CMakeFiles/
